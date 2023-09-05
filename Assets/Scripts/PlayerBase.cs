@@ -27,6 +27,10 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] public float runSpeed;
     [SerializeField] private float rotationSpeed;
 
+    #endregion
+
+    #region Jump
+
     [Header("JumpSettings")] 
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundMask;
@@ -77,6 +81,7 @@ public class PlayerBase : MonoBehaviour
         _playerInput.PlayerController.Jump.canceled += OnJump;
 
         _playerInput.PlayerController.Crouch.started += OnCrouch;
+        _playerInput.PlayerController.Crouch.performed += OnCrouch;
         _playerInput.PlayerController.Crouch.canceled += OnCrouch;
         
     }
@@ -92,12 +97,13 @@ public class PlayerBase : MonoBehaviour
         moveZAnimationParameterId = Animator.StringToHash("MoveZ");
         jumpAnimation = Animator.StringToHash("Jump");
     }
-
-
+    
+    
     private void FixedUpdate()
     {
         PlayerMove();
         PlayerJump();
+        PlayerCrouch();
         PlayerAnimation();
         PlayerCamera();
     }
@@ -106,38 +112,59 @@ public class PlayerBase : MonoBehaviour
     void PlayerMove()
     {
         Vector3 move = new Vector3(currentAnimationBlendVector.x, 0, currentAnimationBlendVector.y);
-        move = move.x * cameraTransform.transform.position.normalized + move.z * cameraTransform.transform.forward.normalized;
+        move = move.x * cameraTransform.right.normalized + move.z * cameraTransform.forward.normalized;
         move.y = 0;
+
+        if (_isRunPressed && _isMovementPressed)
+        {
+            float targetY = Mathf.Clamp(currentAnimationBlendVector.y * 2, 0f, +1);
+            currentAnimationBlendVector.y = Mathf.SmoothDamp(currentAnimationBlendVector.y, targetY, ref animationVelocity.y, animationSmoothTime);
+        }
+        else
+        {
+            float targetY = 0f;
+            currentAnimationBlendVector.y = Mathf.SmoothDamp(currentAnimationBlendVector.y, targetY, ref animationVelocity.y, animationSmoothTime);
+        }
 
         Vector3 newPosition = transform.position + move * (Time.fixedDeltaTime * (_isRunPressed ? runSpeed : playerSpeed));
         rb.MovePosition(newPosition);
     }
-
     void PlayerJump() 
     {
-        if (_isJumpPressed && _playerIsGrounded()) 
+        if (_isJumpPressed && _playerIsGrounded())
+        {
+            Debug.Log("if press playerJump" + _isJumpPressed);
             rb.AddForce(Vector3.up * jumpAmount, ForceMode.Impulse);
+            animator.CrossFade(jumpAnimation, animationPlayTransition, 0, 0);
+            animator.SetBool("isJump", true);
+        }
+        //else
+            animator.SetBool("isJump", false);
+
         if (!_playerIsGrounded())
             Physics.gravity = Vector3.Lerp(fallGravity, gravity, Time.deltaTime);
         else 
             Physics.gravity = Vector3.Lerp(Physics.gravity, constantGravity, Time.deltaTime);
-        
-    }
 
+    }
     void PlayerAnimation()
     {
-        
         currentAnimationBlendVector = Vector2.SmoothDamp(currentAnimationBlendVector, movementInput, ref animationVelocity, animationSmoothTime);
         
         animator.SetFloat(moveXAnimationParameterId, currentAnimationBlendVector.x);
         animator.SetFloat(moveZAnimationParameterId, currentAnimationBlendVector.y);
-
     }
-
     void PlayerCamera()
     {
         Quaternion targetRotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+    }
+    void PlayerCrouch()
+    {
+        if (_isCrouchPressed)
+            animator.SetBool("isCrouch", true);
+        else
+            animator.SetBool("isCrouch", false);
     }
     
     
