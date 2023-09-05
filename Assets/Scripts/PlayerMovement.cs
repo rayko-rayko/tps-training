@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 
-public class PlayerBase : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     #region Setup
 
