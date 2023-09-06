@@ -31,8 +31,7 @@ public class PlayerBulletController : MonoBehaviour
     {
         transform.position = Vector3.MoveTowards(transform.position, target, bulletSpeed * Time.fixedDeltaTime);
     }
-    
-    
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("TargetBoard"))
@@ -50,8 +49,7 @@ public class PlayerBulletController : MonoBehaviour
         
         Debug.Log("Temas edilen nesnenin tagi: " + collision.gameObject.tag);
     }
-    
-    
+
     private void OnEnable()
     {
         Destroy(gameObject, timeToDestroy);
