@@ -80,6 +80,24 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""Button"",
+                    ""id"": ""0148fbfc-c8b0-44d0-acac-cff10a1162b0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""d89a8b6d-25f8-4eb9-bc9f-7170a9642959"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -192,6 +210,28 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""672c95f6-6a65-4d27-a4a0-2de3dd3cbd6e"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a72982b-a6d8-4ce7-955c-bf945fc16cb7"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -206,6 +246,8 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
         m_PlayerController_Shoot = m_PlayerController.FindAction("Shoot", throwIfNotFound: true);
         m_PlayerController_Aim = m_PlayerController.FindAction("Aim", throwIfNotFound: true);
         m_PlayerController_Jump = m_PlayerController.FindAction("Jump", throwIfNotFound: true);
+        m_PlayerController_Zoom = m_PlayerController.FindAction("Zoom", throwIfNotFound: true);
+        m_PlayerController_Reload = m_PlayerController.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -271,6 +313,8 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerController_Shoot;
     private readonly InputAction m_PlayerController_Aim;
     private readonly InputAction m_PlayerController_Jump;
+    private readonly InputAction m_PlayerController_Zoom;
+    private readonly InputAction m_PlayerController_Reload;
     public struct PlayerControllerActions
     {
         private @PlayerControl m_Wrapper;
@@ -281,6 +325,8 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_PlayerController_Shoot;
         public InputAction @Aim => m_Wrapper.m_PlayerController_Aim;
         public InputAction @Jump => m_Wrapper.m_PlayerController_Jump;
+        public InputAction @Zoom => m_Wrapper.m_PlayerController_Zoom;
+        public InputAction @Reload => m_Wrapper.m_PlayerController_Reload;
         public InputActionMap Get() { return m_Wrapper.m_PlayerController; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -308,6 +354,12 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerControllerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerControllerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerControllerActionsCallbackInterface.OnJump;
+                @Zoom.started -= m_Wrapper.m_PlayerControllerActionsCallbackInterface.OnZoom;
+                @Zoom.performed -= m_Wrapper.m_PlayerControllerActionsCallbackInterface.OnZoom;
+                @Zoom.canceled -= m_Wrapper.m_PlayerControllerActionsCallbackInterface.OnZoom;
+                @Reload.started -= m_Wrapper.m_PlayerControllerActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_PlayerControllerActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_PlayerControllerActionsCallbackInterface.OnReload;
             }
             m_Wrapper.m_PlayerControllerActionsCallbackInterface = instance;
             if (instance != null)
@@ -330,6 +382,12 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Zoom.started += instance.OnZoom;
+                @Zoom.performed += instance.OnZoom;
+                @Zoom.canceled += instance.OnZoom;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
             }
         }
     }
@@ -342,5 +400,7 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnZoom(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }

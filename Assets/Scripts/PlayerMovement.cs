@@ -9,8 +9,9 @@ public class PlayerMovement : MonoBehaviour
 {
     #region Setup
 
-    private PlayerControl _playerInput;
+    public static PlayerControl _playerInput;
     private Rigidbody rb;
+    //[SerializeField] private CharacterController _controller;
 
     #endregion
 
@@ -18,9 +19,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 currentMovement;
     private Vector2 movementInput;
-    private bool _isMovementPressed = false;
+    public bool _isMovementPressed = false;
     private bool _isRunPressed = false;
-    private bool _isCrouchPressed = false;
+    public bool _isCrouchPressed = false;
 
     [Header("Movement Settings")] 
     [SerializeField] public float playerSpeed;
@@ -97,7 +98,6 @@ public class PlayerMovement : MonoBehaviour
         moveZAnimationParameterId = Animator.StringToHash("MoveZ");
         jumpAnimation = Animator.StringToHash("Jump");
     }
-    
     
     private void FixedUpdate()
     {
