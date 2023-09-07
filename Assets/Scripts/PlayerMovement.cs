@@ -134,8 +134,8 @@ public class PlayerMovement : MonoBehaviour
         if (_isJumpPressed && _playerIsGrounded())
         {
             Debug.Log("if press playerJump" + _isJumpPressed);
-            //rb.AddForce(Vector3.up * jumpAmount, ForceMode.Impulse);
-            rb.velocity += new Vector3(0,  jumpAmount, 0);
+            rb.AddForce(Vector3.up * jumpAmount, ForceMode.Impulse);
+            //rb.velocity += new Vector3(0,  jumpAmount, 0);
 
             animator.CrossFadeInFixedTime(jumpAnimation, animationPlayTransition, 0, 0);
             animator.SetBool("isJump", true);

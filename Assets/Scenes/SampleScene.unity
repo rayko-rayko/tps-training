@@ -672,42 +672,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6706812875257827155, guid: 799c622f244994066be927e9be937652, type: 3}
   m_PrefabInstance: {fileID: 6528490734947531705}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &919132149113417296 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6221919053656757737, guid: 799c622f244994066be927e9be937652, type: 3}
-  m_PrefabInstance: {fileID: 6528490734947531705}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5866666021951532689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132149113417296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d433db8441e1475abb95c5c2e917dd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 919132149113417296}
-  bulletClipCapacity: 30
-  bulletAmmo: 90
-  bulletClip: 30
-  bulletDiff: 0
---- !u!136 &5866666021951532691
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132149113417296}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.32
-  m_Height: 1.85
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.88, z: 0}
 --- !u!1001 &6528490734947531705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -719,38 +683,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Y Bot
       objectReference: {fileID: 0}
-    - target: {fileID: 6528490734654965576, guid: 799c622f244994066be927e9be937652, type: 3}
-      propertyPath: m_Constraints
-      value: 112
-      objectReference: {fileID: 0}
-    - target: {fileID: 6528490734654965577, guid: 799c622f244994066be927e9be937652, type: 3}
-      propertyPath: jumpAmount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6528490734654965577, guid: 799c622f244994066be927e9be937652, type: 3}
-      propertyPath: fallGravity.y
-      value: -9.81
-      objectReference: {fileID: 0}
-    - target: {fileID: 6528490734654965581, guid: 799c622f244994066be927e9be937652, type: 3}
-      propertyPath: _reload
-      value: 
-      objectReference: {fileID: 5866666021951532689}
-    - target: {fileID: 6528490734654965581, guid: 799c622f244994066be927e9be937652, type: 3}
-      propertyPath: fireRate
-      value: 0.25
-      objectReference: {fileID: 0}
     - target: {fileID: 6528490734654965581, guid: 799c622f244994066be927e9be937652, type: 3}
       propertyPath: bulletParent
       value: 
       objectReference: {fileID: 577605686}
-    - target: {fileID: 6528490734654965581, guid: 799c622f244994066be927e9be937652, type: 3}
-      propertyPath: bulletPrefab
-      value: 
-      objectReference: {fileID: 6405184915364560316, guid: d5552d50fcf29403e85037c7b4495519, type: 3}
-    - target: {fileID: 6528490734654965581, guid: 799c622f244994066be927e9be937652, type: 3}
-      propertyPath: shootLayer.m_Bits
-      value: 2147483647
-      objectReference: {fileID: 0}
     - target: {fileID: 6706812875257827155, guid: 799c622f244994066be927e9be937652, type: 3}
       propertyPath: m_RootOrder
       value: 2

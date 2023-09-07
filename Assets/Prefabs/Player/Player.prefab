@@ -1362,6 +1362,8 @@ GameObject:
   - component: {fileID: 6528490734654965576}
   - component: {fileID: 6528490734654965577}
   - component: {fileID: 6528490734654965581}
+  - component: {fileID: 5866666021951532689}
+  - component: {fileID: 5866666021951532696}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1422,7 +1424,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!114 &6528490734654965577
 MonoBehaviour:
@@ -1445,8 +1447,8 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
-  jumpAmount: 150
-  fallGravity: {x: 0, y: -5, z: 0}
+  jumpAmount: 1
+  fallGravity: {x: 0, y: -9.81, z: 0}
   animator: {fileID: 861117793406260521}
   animationSmoothTime: 0.2
   animationPlayTransition: 0.15
@@ -1464,14 +1466,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 861117793406260521}
   fireRate: 0.1
+  _reload: {fileID: 5866666021951532689}
+  shootLayer:
+    serializedVersion: 2
+    m_Bits: 2147483647
   bulletDamage: 10
   outputRayWeapon: {fileID: 6528490735076196617}
   range: 100
   layerMask:
     serializedVersion: 2
     m_Bits: 2147483647
-  bulletPrefab: {fileID: 5341742223406746680, guid: 9c3cddd6060b7cc4eadfb9cefcf6e7db, type: 3}
+  bulletPrefab: {fileID: 6405184915364560316, guid: d5552d50fcf29403e85037c7b4495519, type: 3}
   bulletParent: {fileID: 0}
+--- !u!114 &5866666021951532689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6221919053656757737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d433db8441e1475abb95c5c2e917dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 6221919053656757737}
+  bulletClipCapacity: 30
+  bulletAmmo: 90
+  bulletClip: 30
+  bulletDiff: 0
+--- !u!136 &5866666021951532696
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6221919053656757737}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.32
+  m_Height: 1.85
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.88, z: 0}
 --- !u!1 &6379060526368320254
 GameObject:
   m_ObjectHideFlags: 0
