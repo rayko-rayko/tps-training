@@ -38,45 +38,60 @@ public class PlayerReload : MonoBehaviour
 
     private void Update()
     {
-        Reload();
-    }
+        if (_isReloadPressed && bulletClip != 30)
+        {
+            animator.SetBool("isReload", true);
+            Player.GetComponent<PlayerShoot>()._canShoot = false;
 
+        }
+        else if (bulletClip == 0 && bulletAmmo > 0)
+        {
+            animator.SetBool("isReload", true);
+            Player.GetComponent<PlayerShoot>()._canShoot = false;
+        }
+    }
+    
+    
+    void ReloadAnimationEvent()
+    {
+        Reload();
+        // if (bulletClip != 30)
+        // {
+        //     StartCoroutine(IsReloadingWaiting());
+        // }
+    }
+    
     void Reload()
     {
-        if (_isReloadPressed)
+        if (bulletClip == 0 && bulletAmmo > 0)
         {
-            if (bulletClip == 0 && bulletAmmo > 0)
-            {
-                StartCoroutine(IsReloadingWaiting());
-                Debug.Log("Bullet is 0 in Clip. Reloading");
-                bulletClip = bulletClipCapacity;
-                bulletAmmo -= bulletClipCapacity;
-            }
-
-            if (bulletClipCapacity > bulletClip && bulletClip > 0 && bulletAmmo > 0)
-            {
-                StartCoroutine(IsReloadingWaiting());
-                bulletDiff = bulletClipCapacity - bulletClip;
-                if (bulletDiff > bulletAmmo)
-                {
-                    bulletDiff = bulletAmmo;
-                }
-
-                bulletAmmo -= bulletDiff;
-                bulletClip += bulletDiff;
-            }
+            Debug.Log("Bullet is 0 in Clip. Reloading");
+            bulletClip = bulletClipCapacity;
+            bulletAmmo -= bulletClipCapacity;
         }
-        else
-            animator.SetBool("isReload", false);
-    }
-
-    IEnumerator IsReloadingWaiting()
-    {
-        animator.SetBool("isReload", true);
-        yield return new WaitForSeconds(5 * Time.deltaTime);
+        if (bulletClipCapacity > bulletClip && bulletClip > 0 && bulletAmmo > 0)
+        {
+            bulletDiff = bulletClipCapacity - bulletClip;
+            if (bulletDiff > bulletAmmo)
+            {
+                bulletDiff = bulletAmmo;
+            }
+            bulletAmmo -= bulletDiff;
+            bulletClip += bulletDiff;
+        }
+        
         animator.SetBool("isReload", false);
+        Player.GetComponent<PlayerShoot>()._canShoot = true;
 
     }
+
+    // IEnumerator IsReloadingWaiting()
+    // {
+    //     animator.SetBool("isReload", true);
+    //     Reload();
+    //     yield return new WaitForSeconds(2.5f);
+    //     animator.SetBool("isReload", false);
+    // }
     
     void OnReload(InputAction.CallbackContext context)
     {

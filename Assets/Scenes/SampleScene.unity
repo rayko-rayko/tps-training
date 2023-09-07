@@ -683,6 +683,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Y Bot
       objectReference: {fileID: 0}
+    - target: {fileID: 6528490734654965577, guid: 799c622f244994066be927e9be937652, type: 3}
+      propertyPath: playerSpeed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6528490734654965581, guid: 799c622f244994066be927e9be937652, type: 3}
       propertyPath: bulletParent
       value: 

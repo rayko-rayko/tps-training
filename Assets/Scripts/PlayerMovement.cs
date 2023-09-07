@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     public static PlayerControl _playerInput;
     private Rigidbody rb;
-    //[SerializeField] private CharacterController _controller;
+    [SerializeField] private CharacterController _controller;
 
     #endregion
 
@@ -93,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        _controller = GetComponent<CharacterController>();
         
         moveXAnimationParameterId = Animator.StringToHash("MoveX");
         moveZAnimationParameterId = Animator.StringToHash("MoveZ");
@@ -128,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 newPosition = transform.position + move * (Time.fixedDeltaTime * (_isRunPressed ? runSpeed : playerSpeed));
         rb.MovePosition(newPosition);
+        //_controller.Move(newPosition);
     }
     void PlayerJump() 
     {

@@ -29,6 +29,7 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private PlayerReload _reload;
     [SerializeField] private LayerMask shootLayer;
     private bool _isShootPressed = false;
+    public bool _canShoot = true;
     private float nextFire;
 
     #endregion
@@ -67,22 +68,17 @@ public class PlayerShoot : MonoBehaviour
 
     private void Update()
     {
-        RifleShoot();
-        AimZoom();
-    }
-
-
-    void RifleShoot()
-    {
-        if (_isShootPressed && Time.time > nextFire)
+        if (_isShootPressed && Time.time > nextFire && _canShoot)
         {
             nextFire = Time.time + fireRate;
 
             StartCoroutine(Trigger());
         }
         
-       
+        AimZoom();
     }
+
+
     void AimZoom()
     {
         if (_isAimZoomPressed)

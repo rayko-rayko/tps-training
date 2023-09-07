@@ -101786,4 +101786,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 2.1666667
+    functionName: ReloadAnimationEvent
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: 7d433db8441e1475abb95c5c2e917dd4, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
