@@ -19,7 +19,7 @@ public class PlayerShoot : MonoBehaviour
     #region AimZoom
 
     [Header("Zoom Settings")] 
-    private bool _isAimZoomPressed = false;
+    public bool _isAimZoomPressed = false;
     
     #endregion
 
@@ -104,7 +104,7 @@ public class PlayerShoot : MonoBehaviour
     IEnumerator Trigger()
     {
         yield return new WaitForSeconds(fireRate);
-        if (_isShootPressed && _reload.bulletClip > 0)
+        if (_isShootPressed && _reload.bulletClip > 0 && _canShoot)
         {
             animator.SetBool("isShoot", true);
             RaycastHit hit;

@@ -144,7 +144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4032139418045994447, guid: 555b72e37cd164209a4c65c653b16334, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.2283676
+      value: 1.2757456
       objectReference: {fileID: 0}
     - target: {fileID: 4032139418045994447, guid: 555b72e37cd164209a4c65c653b16334, type: 3}
       propertyPath: m_LocalPosition.y
@@ -529,7 +529,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.1736482, y: 0, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: 1.2283676, y: 2.7423472, z: -2.7185733}
+  m_LocalPosition: {x: 1.2757456, y: 2.7423472, z: -2.7185733}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -679,13 +679,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5866666021951532689, guid: 799c622f244994066be927e9be937652, type: 3}
+      propertyPath: bulletAmmo
+      value: 9000
+      objectReference: {fileID: 0}
     - target: {fileID: 6221919053656757737, guid: 799c622f244994066be927e9be937652, type: 3}
       propertyPath: m_Name
       value: Y Bot
       objectReference: {fileID: 0}
+    - target: {fileID: 6528490734654965576, guid: 799c622f244994066be927e9be937652, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6528490734654965577, guid: 799c622f244994066be927e9be937652, type: 3}
       propertyPath: playerSpeed
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528490734654965581, guid: 799c622f244994066be927e9be937652, type: 3}
+      propertyPath: fireRate
+      value: 0.125
       objectReference: {fileID: 0}
     - target: {fileID: 6528490734654965581, guid: 799c622f244994066be927e9be937652, type: 3}
       propertyPath: bulletParent

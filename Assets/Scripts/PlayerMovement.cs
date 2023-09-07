@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     public static PlayerControl _playerInput;
     private Rigidbody rb;
     [SerializeField] private CharacterController _controller;
+    [SerializeField] private CapsuleCollider _capsuleCollider;
+    private Vector3 startColliderCenter;
+    private float startColliderRadius, startColliderHeight;
 
     #endregion
 
@@ -94,6 +97,11 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         _controller = GetComponent<CharacterController>();
+        _capsuleCollider = GetComponent<CapsuleCollider>();
+        
+        startColliderCenter = _capsuleCollider.center;
+        startColliderRadius = _capsuleCollider.radius;
+        startColliderHeight = _capsuleCollider.height;
         
         moveXAnimationParameterId = Animator.StringToHash("MoveX");
         moveZAnimationParameterId = Animator.StringToHash("MoveZ");
@@ -166,9 +174,19 @@ public class PlayerMovement : MonoBehaviour
     void PlayerCrouch()
     {
         if (_isCrouchPressed)
+        {
             animator.SetBool("isCrouch", true);
+            _capsuleCollider.center = new Vector3(0, .58f, .12f);
+            _capsuleCollider.radius = .35f;
+            _capsuleCollider.height = 1.43f;
+        }
         else
+        {
             animator.SetBool("isCrouch", false);
+            _capsuleCollider.center = startColliderCenter;
+            _capsuleCollider.radius = startColliderRadius;
+            _capsuleCollider.height = startColliderHeight;
+        }
     }
     
     

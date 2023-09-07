@@ -38,7 +38,7 @@ public class PlayerReload : MonoBehaviour
 
     private void Update()
     {
-        if (_isReloadPressed && bulletClip != 30)
+        if (_isReloadPressed && bulletClip != 30 && bulletAmmo != 0)
         {
             animator.SetBool("isReload", true);
             Player.GetComponent<PlayerShoot>()._canShoot = false;
@@ -79,19 +79,18 @@ public class PlayerReload : MonoBehaviour
             bulletAmmo -= bulletDiff;
             bulletClip += bulletDiff;
         }
-        
-        animator.SetBool("isReload", false);
-        Player.GetComponent<PlayerShoot>()._canShoot = true;
 
+        StartCoroutine(IsReloadingWaiting());
     }
 
-    // IEnumerator IsReloadingWaiting()
-    // {
-    //     animator.SetBool("isReload", true);
-    //     Reload();
-    //     yield return new WaitForSeconds(2.5f);
-    //     animator.SetBool("isReload", false);
-    // }
+    IEnumerator IsReloadingWaiting()
+    {
+        animator.SetBool("isReload", false);
+        yield return new WaitForSeconds(.45f);
+        Player.GetComponent<PlayerShoot>()._canShoot = true;
+
+
+    }
     
     void OnReload(InputAction.CallbackContext context)
     {
