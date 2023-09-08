@@ -107,57 +107,95 @@ public class PlayerMovement : MonoBehaviour
         moveZAnimationParameterId = Animator.StringToHash("MoveZ");
         jumpAnimation = Animator.StringToHash("Jump");
     }
-    
-    private void FixedUpdate()
+
+    private void Update()
     {
         PlayerMove();
+    }
+
+    private void FixedUpdate()
+    {
+        
         PlayerJump();
         PlayerCrouch();
         PlayerAnimation();
         PlayerCamera();
     }
 
-
+    // void PlayerMove()
+    // {
+    //     Vector3 move = new Vector3(currentAnimationBlendVector.x, 0, currentAnimationBlendVector.y);
+    //     move = move.x * cameraTransform.right.normalized + move.z * cameraTransform.forward.normalized;
+    //     move.y = 0;
+    //
+    //     if (_isRunPressed && _isMovementPressed)
+    //     {
+    //         float targetY = Mathf.Clamp(currentAnimationBlendVector.y * 2, 0f, +1);
+    //         currentAnimationBlendVector.y = Mathf.SmoothDamp(currentAnimationBlendVector.y, targetY, ref animationVelocity.y, animationSmoothTime);
+    //     }
+    //     else
+    //     {
+    //         float targetY = 0f;
+    //         currentAnimationBlendVector.y = Mathf.SmoothDamp(currentAnimationBlendVector.y, targetY, ref animationVelocity.y, animationSmoothTime);
+    //     }
+    //
+    //     Vector3 newPosition = transform.position + move * (Time.fixedDeltaTime * (_isRunPressed ? runSpeed : playerSpeed));
+    //     _controller.Move(newPosition - transform.position);
+    // }
+    
+    // void PlayerMove()
+    // {
+    //     Vector3 move = new Vector3(currentMovement.x, 0, currentMovement.y);
+    //     move = move.x * cameraTransform.right.normalized + move.z * cameraTransform.forward.normalized;
+    //     move.y = 0;
+    //
+    //     // if (_isRunPressed && _isMovementPressed)
+    //     // {
+    //     //     float targetY = Mathf.Clamp(currentAnimationBlendVector.y * 2, 0f, +1);
+    //     //     currentAnimationBlendVector.y = Mathf.SmoothDamp(currentAnimationBlendVector.y, targetY, ref animationVelocity.y, animationSmoothTime);
+    //     // }
+    //     // else
+    //     // {
+    //     //     float targetY = 0f;
+    //     //     currentAnimationBlendVector.y = Mathf.SmoothDamp(currentAnimationBlendVector.y, targetY, ref animationVelocity.y, animationSmoothTime);
+    //     // }
+    //
+    //     Vector3 newPosition = transform.position + move * (Time.fixedDeltaTime * (_isRunPressed ? runSpeed : playerSpeed));
+    //     //_controller.Move(move * playerSpeed * Time.deltaTime);
+    //     //rb.MovePosition(newPosition);
+    //     //rb.velocity += (transform.forward * move.z) * playerSpeed * Time.deltaTime;
+    //     //transform.Rotate((transform.right * move.x) * rotationSpeed * Time.deltaTime);
+    //     _controller.Move((newPosition - transform.position) * playerSpeed * Time.deltaTime);
+    // }
+    
     void PlayerMove()
     {
-        Vector3 move = new Vector3(currentAnimationBlendVector.x, 0, currentAnimationBlendVector.y);
-        move = move.x * cameraTransform.right.normalized + move.z * cameraTransform.forward.normalized;
-        move.y = 0;
-
-        if (_isRunPressed && _isMovementPressed)
-        {
-            float targetY = Mathf.Clamp(currentAnimationBlendVector.y * 2, 0f, +1);
-            currentAnimationBlendVector.y = Mathf.SmoothDamp(currentAnimationBlendVector.y, targetY, ref animationVelocity.y, animationSmoothTime);
-        }
-        else
-        {
-            float targetY = 0f;
-            currentAnimationBlendVector.y = Mathf.SmoothDamp(currentAnimationBlendVector.y, targetY, ref animationVelocity.y, animationSmoothTime);
-        }
-
-        Vector3 newPosition = transform.position + move * (Time.fixedDeltaTime * (_isRunPressed ? runSpeed : playerSpeed));
-        rb.MovePosition(newPosition);
-        //_controller.Move(newPosition);
+        Vector3 move = new Vector3(currentMovement.x, 0, currentMovement.z); 
+        move = move.normalized * (Time.deltaTime * (_isRunPressed ? runSpeed : playerSpeed));
+        
+        move = transform.TransformDirection(move);
+    
+        _controller.Move(move);
     }
+
     void PlayerJump() 
     {
         if (_isJumpPressed && _playerIsGrounded())
         {
-            Debug.Log("if press playerJump" + _isJumpPressed);
-            rb.AddForce(Vector3.up * jumpAmount, ForceMode.Impulse);
+            _controller.SimpleMove(Vector3.up * jumpAmount);
+            //rb.AddForce(Vector3.up * jumpAmount, ForceMode.Impulse);
             //rb.velocity += new Vector3(0,  jumpAmount, 0);
 
             animator.CrossFadeInFixedTime(jumpAnimation, animationPlayTransition, 0, 0);
             animator.SetBool("isJump", true);
         }
-        //else
+        else
             animator.SetBool("isJump", false);
 
         if (!_playerIsGrounded())
             Physics.gravity = Vector3.Lerp(fallGravity, gravity, Time.deltaTime);
         else 
             Physics.gravity = Vector3.Lerp(Physics.gravity, constantGravity, Time.deltaTime);
-
     }
     void PlayerAnimation()
     {
